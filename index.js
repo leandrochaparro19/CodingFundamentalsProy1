@@ -134,8 +134,8 @@ switch(dato){
 Inicio();
 let poke;
 do{
-poke = prompt("Selecciona tu pokemon \n 1:Pikachu \n 2:Charizar \n 3:Charmander \n 4:Bulbasaur \n 5:Squirtle \n 6:Snorlax");
-}while(poke != "1" && poke !="2" && poke!="3" && poke != "4" && poke !="5" && poke!="6");
+poke = prompt("Selecciona tu pokemon \n 1:Pikachu \n 2:Charizar \n 3:Charmander \n 4:Bulbasaur \n 5:Squirtle \n 6:Snorlax \n 7:No deseo jugar");
+}while(poke != "1" && poke !="2" && poke!="3" && poke != "4" && poke !="5" && poke!="6" && poke!="7");
 
 let pc;
 let pokemonUsers = new Pokemon;
@@ -154,29 +154,30 @@ console.log("USUARIO: "+pokemonUsers.mostrarInfo()+"\nPC: "+pokemonPc.mostrarInf
 let Ronda=1;
 let terminar =false;
 let evolucionUser,evolucionPc;
+if(poke!="7"){
 comienzo()
-
+}
  while(true){   
     if(!pokemonUsers.Muere() && !pokemonPc.Muere()){
     if(Ronda>5){
        evolucionUser=Math.floor(Math.random() * (20 - 1)) + 1;
        evolucionPc= Math.floor(Math.random() * (20 - 1)) + 1;
-       if(evolucionPc==15){
-           console.log(`${pokemonPc.nombre} Evoluciono!`);
-           pokemonPc.SetEvloucion = "███████████████████████";
-       }
-       if(evolucionUser==15){
-           console.log(`${pokemonUsers.nombre} Evoluciono!`);
-           pokemonUsers.SetEvloucion ="███████████████████████";
-       }
     }
     console.log(`--------------------------------------------------------------------RONDA ${Ronda}--------------------------------------------------------------------`);    
     pokemonPc.SetDaño=pokemonUsers.ataque;
     pokemonUsers.SetDaño=pokemonPc.ataque;
+    if(evolucionUser==15){
+        console.log(`${pokemonUsers.nombre} Evoluciono!`);
+        pokemonUsers.SetEvloucion ="███████████████████████";
+    }
     console.log(`%c ${pokemonUsers.nombre} Nv ${pokemonUsers.nivel}: `,`color:green`);
     console.log(`%c ${pokemonUsers.ataque}`,`color:#ffa500`);
     console.log(`%c ${pokemonUsers.GetVida}`,`color:green`);
     console.log(`%c ${pokemonUsers.defensa}`,`color:#48d1cc`);
+    if(evolucionPc==15){
+        console.log(`${pokemonPc.nombre} Evoluciono!`);
+        pokemonPc.SetEvloucion = "███████████████████████";
+    }
     console.log(`%c ${pokemonPc.nombre} Nv ${pokemonPc.nivel}: `,`color:red`);
     console.log(`%c ${pokemonPc.ataque}`,`color:#ffa500`);
     console.log(`%c ${pokemonPc.GetVida}`,`color:red`);
@@ -193,6 +194,7 @@ comienzo()
         break;
     }
     Ronda++;
+    //Este bucle es muy poco practico pero cumple con su funcionalidad y es que el combate se ejecute mas lento ::tuve problemas con setTimeout
     for(let i=0;i<1000;i++){
         for(let j=0;j<1000;j++){
             for(let z=0;z<1000;z++){
