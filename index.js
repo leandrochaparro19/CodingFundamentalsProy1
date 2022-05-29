@@ -193,4 +193,11 @@ comienzo()
         break;
     }
     Ronda++;
+    for(let i=0;i<1000;i++){
+        for(let j=0;j<1000;j++){
+            for(let z=0;z<1000;z++){
+
+            }
+        }
+    }
 }
