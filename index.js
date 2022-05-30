@@ -64,12 +64,16 @@ class Pokemon{
     this.nivel=nivel;
     }
     mostrarInfo(){
-        return `
-        Pokemon:${this.nombre}
-        Vida:${this.vida}
-        Ataque:${this.ataque}
-        Defensa:${this.defensa}
-        Nivel:${this.nivel}`;
+        //return `
+        //Pokemon:${this.nombre}
+        //Vida:${this.vida}
+        //Ataque:${this.ataque}
+        //Defensa:${this.defensa}
+        //Nivel:${this.nivel}`;
+        console.log(`%c ${this.nombre} Nv ${this.nivel}: `,`color:green`);
+        console.log(`%c ${this.GetVida}`,`color:green`);
+        console.log(`%c ${this.defensa}`,`color:#48d1cc`);
+        console.log(`%c ${this.ataque}`,`color:#ffa500`);
     }
     set SetDaño(valor){
         if(this.defensa.length>0){
@@ -100,10 +104,13 @@ class Pokemon{
             return false;
         }
     }
+    set SetQuitarAtaque(at){
+        this.ataque=at;
+    }
 }
 
 function seleccionPokemon(pokemon1,dato){
-let vida="████████████████████████████████████████████████████████████████████████████████████████████████████████████████████████";
+let vida="████████████████████████████████████████████████████████████████████████████████████████████████████";
 switch(dato){
     case "1":
     case 1:
@@ -149,15 +156,27 @@ while(true){
     }
 }
 
-console.log("USUARIO: "+pokemonUsers.mostrarInfo()+"\nPC: "+pokemonPc.mostrarInfo());
+console.log("USUARIO: ");
+console.log(`%c ${pokemonUsers.nombre} Nv ${pokemonUsers.nivel}: `,`color:green`);
+console.log(`%c ${pokemonUsers.GetVida}`,`color:green`);
+console.log(`%c ${pokemonUsers.defensa}`,`color:#48d1cc`);
+console.log(`%c ${pokemonUsers.ataque}`,`color:#ffa500`);
+console.log("PC: ");   
+console.log(`%c ${pokemonPc.nombre} Nv ${pokemonPc.nivel}: `,`color:red`);
+console.log(`%c ${pokemonPc.GetVida}`,`color:red`);
+console.log(`%c ${pokemonPc.defensa}`,`color:#48d1cc`);
+console.log(`%c ${pokemonPc.ataque}`,`color:#ffa500`);
 
 let Ronda=1;
-let terminar =false;
 let evolucionUser,evolucionPc;
+
+const logoComienzo = setTimeout(function mostrarLogo(){
 if(poke!="7"){
-comienzo()
+comienzo();
+clearTimeout(logoComienzo);
 }
- while(true){   
+ 
+const bucle = setInterval(function pelea(){
     if(!pokemonUsers.Muere() && !pokemonPc.Muere()){
     if(Ronda>5){
        evolucionUser=Math.floor(Math.random() * (20 - 1)) + 1;
@@ -166,40 +185,44 @@ comienzo()
     console.log(`--------------------------------------------------------------------RONDA ${Ronda}--------------------------------------------------------------------`);    
     pokemonPc.SetDaño=pokemonUsers.ataque;
     pokemonUsers.SetDaño=pokemonPc.ataque;
-    if(evolucionUser==15){
+
+    if(evolucionUser==15 || evolucionUser==7){
         console.log(`${pokemonUsers.nombre} Evoluciono!`);
         pokemonUsers.SetEvloucion ="███████████████████████";
     }
+    if(pokemonUsers.Muere()==true){
+        pokemonUsers.SetQuitarAtaque ="";
+    }
     console.log(`%c ${pokemonUsers.nombre} Nv ${pokemonUsers.nivel}: `,`color:green`);
-    console.log(`%c ${pokemonUsers.ataque}`,`color:#ffa500`);
     console.log(`%c ${pokemonUsers.GetVida}`,`color:green`);
     console.log(`%c ${pokemonUsers.defensa}`,`color:#48d1cc`);
+    console.log(`%c ${pokemonUsers.ataque}`,`color:#ffa500`);
+
     if(evolucionPc==15){
         console.log(`${pokemonPc.nombre} Evoluciono!`);
         pokemonPc.SetEvloucion = "███████████████████████";
     }
+    if(pokemonPc.Muere()==true){
+        pokemonPc.SetQuitarAtaque ="";
+    }
     console.log(`%c ${pokemonPc.nombre} Nv ${pokemonPc.nivel}: `,`color:red`);
-    console.log(`%c ${pokemonPc.ataque}`,`color:#ffa500`);
     console.log(`%c ${pokemonPc.GetVida}`,`color:red`);
     console.log(`%c ${pokemonPc.defensa}`,`color:#48d1cc`);
+    console.log(`%c ${pokemonPc.ataque}`,`color:#ffa500`);
     }else{
-        terminar=true;
         if(pokemonUsers.Muere()==true){
             console.log(`---------------------------------------------------------------Ganador: ${pokemonPc.nombre}---------------------------------------------------------------`);
             perdio();
+            clearInterval(bucle);
+            return;
         }else{
             console.log(`---------------------------------------------------------------Ganador: ${pokemonUsers.nombre}---------------------------------------------------------------`);
             gano();
+            clearInterval(bucle);
+            return;
         }
-        break;
     }
     Ronda++;
-    //Este bucle es muy poco practico pero cumple con su funcionalidad y es que el combate se ejecute mas lento ::tuve problemas con setTimeout
-    for(let i=0;i<1000;i++){
-        for(let j=0;j<1000;j++){
-            for(let z=0;z<1000;z++){
+},1000);
 
-            }
-        }
-    }
-}
+},5000);
