@@ -182,12 +182,12 @@ const bucle = setInterval(function pelea(){
        evolucionUser=Math.floor(Math.random() * (20 - 1)) + 1;
        evolucionPc= Math.floor(Math.random() * (20 - 1)) + 1;
     }
-    console.log(`--------------------------------------------------------------------RONDA ${Ronda}--------------------------------------------------------------------`);    
+    console.log(`%c-----------------------------------------------------------RONDA ${Ronda}-------------------------------------------------------`,"font-size:15px");    
     pokemonPc.SetDaño=pokemonUsers.ataque;
     pokemonUsers.SetDaño=pokemonPc.ataque;
 
     if(evolucionUser==15 || evolucionUser==7){
-        console.log(`${pokemonUsers.nombre} Evoluciono!`);
+        console.log(`%c${pokemonUsers.nombre} Evoluciono!`,"font-size:15px");
         pokemonUsers.SetEvloucion ="███████████████████████";
     }
     if(pokemonUsers.Muere()==true){
@@ -211,12 +211,12 @@ const bucle = setInterval(function pelea(){
     console.log(`%c ${pokemonPc.ataque}`,`color:#ffa500`);
     }else{
         if(pokemonUsers.Muere()==true){
-            console.log(`---------------------------------------------------------------Ganador: ${pokemonPc.nombre}---------------------------------------------------------------`);
+            console.log(`%c--------------------------------------------------------Ganador: ${pokemonPc.nombre}-------------------------------------------------`,"font-size:15px");
             perdio();
             clearInterval(bucle);
             return;
         }else{
-            console.log(`---------------------------------------------------------------Ganador: ${pokemonUsers.nombre}---------------------------------------------------------------`);
+            console.log(`%c--------------------------------------------------------Ganador: ${pokemonUsers.nombre}-------------------------------------------------`,"font-size:15px");
             gano();
             clearInterval(bucle);
             return;
